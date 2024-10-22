@@ -7,10 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dapper\Mappings\" />
-    <Folder Include="Dapper\Repositories\" />
-    <Folder Include="EntityFramework\Mappings\" />
-    <Folder Include="EntityFramework\Repositories\" />
+    <Folder Include="Mappings\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>
