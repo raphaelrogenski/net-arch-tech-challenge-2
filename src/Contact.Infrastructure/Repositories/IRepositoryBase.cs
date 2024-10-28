@@ -1,4 +1,4 @@
-﻿namespace Contacts.Domain.Contracts.Repositories;
+﻿namespace Contacts.Infrastructure.Repositories;
 public interface IRepositoryBase<T> where T : class
 {
     Task<T> GetByIdAsync(Guid id);

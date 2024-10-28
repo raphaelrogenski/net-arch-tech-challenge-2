@@ -1,4 +1,4 @@
-﻿namespace Contacts.Domain.Entities;
+﻿namespace Contacts.Infrastructure.Models;
 public abstract class EntityBase<TId>
 {
     public TId Id { get; protected set; }
