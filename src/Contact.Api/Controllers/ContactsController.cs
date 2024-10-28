@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Contacts.Domain.Contacts.Services;
+using Contacts.Domain.Contacts.VOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Contacts.Api.Controllers
 {
@@ -6,34 +8,79 @@ namespace Contacts.Api.Controllers
     [ApiController]
     public class ContactsController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Get()
+        private readonly IContactService contactService;
+
+        public ContactsController(IContactService contactService)
         {
-            return Ok();
+            this.contactService = contactService;
         }
 
-        [HttpGet("{areaCode}")]
-        public IActionResult GetByAreaCode(string areaCode)
+        [HttpGet]
+        public async Task<IActionResult> List()
         {
-            return Ok();
+            try
+            {
+                return Ok(contactService.List());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("ByDDD/{ddd}")]
+        public async Task<IActionResult> ListByDDD(string ddd)
+        {
+            try
+            {
+                return Ok(contactService.ListByDDD(ddd));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost()]
-        public IActionResult Create()
+        public async Task<IActionResult> Create(ContactVO contact)
         {
-            return Ok();
+            try
+            {
+                contactService.Create(contact);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut()]
-        public IActionResult Update()
+        public async Task<IActionResult> Update(ContactVO contact)
         {
-            return Ok();
+            try
+            {
+                contactService.Update(contact);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpDelete()]
-        public IActionResult Delete()
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            return Ok();
+            try
+            {
+                contactService.Delete(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Contacts.Domain.Contacts.Models;
-using Contacts.Infrastructure.Mappings;
+﻿using Contacts.Application.Contacts.Mappings;
+using Contacts.Domain.Contacts.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Contacts.Application.Contexts;
