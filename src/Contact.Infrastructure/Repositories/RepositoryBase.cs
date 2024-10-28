@@ -1,13 +1,12 @@
-﻿using Contacts.Domain.Contracts.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Contacts.Infrastructure.Repositories;
 public class RepositoryBase<T> : IRepositoryBase<T> where T : class
 {
-    protected readonly AppDbContext _context;
+    protected readonly DbContext _context;
     protected readonly DbSet<T> _dbSet;
 
-    public RepositoryBase(AppDbContext context)
+    public RepositoryBase(DbContext context)
     {
         _context = context;
         _dbSet = _context.Set<T>();

@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Mappers\" />
-    <Folder Include="Queries\" />
+    <ProjectReference Include="..\Contact.Domain\Contacts.Domain.csproj" />
+    <ProjectReference Include="..\Contact.Infrastructure\Contacts.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

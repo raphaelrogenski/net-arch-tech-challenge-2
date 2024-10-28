@@ -1,4 +1,4 @@
-using Contacts.Infrastructure;
+using Contacts.Application.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
