@@ -1,12 +1,7 @@
 ﻿namespace Contacts.Infrastructure.Models;
-public abstract class EntityBase<TId>
+
+public abstract class EntityBase
 {
-    public TId Id { get; protected set; }
-
-    public DateTime CreatedAt { get; protected set; }
-
-    protected EntityBase()
-    {
-        CreatedAt = DateTime.Now;
-    }
+    public Guid Id { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

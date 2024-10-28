@@ -1,42 +1,64 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Contacts.Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Contacts.Infrastructure.Repositories;
-public class RepositoryBase<T> : IRepositoryBase<T> where T : class
+public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
+    where TEntity : EntityBase
 {
     protected readonly DbContext _context;
-    protected readonly DbSet<T> _dbSet;
+    protected readonly DbSet<TEntity> _dbSet;
 
     public RepositoryBase(DbContext context)
     {
         _context = context;
-        _dbSet = _context.Set<T>();
+        _dbSet = _context.Set<TEntity>();
     }
 
-    public async Task<T> GetByIdAsync(Guid id)
+    public IQueryable<TEntity> Query(bool tracking = true)
     {
-        return await _dbSet.FindAsync(id);
+        if (tracking)
+            return _dbSet;
+        else
+            return _dbSet.AsNoTracking();
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public TEntity GetById(Guid id, bool tracking = false)
     {
-        return await _dbSet.ToListAsync();
+        if (id == default)
+            throw new ArgumentException($"Id shouldn't be empty!");
+
+        return Query(tracking).SingleOrDefault(r => r.Id == id);
     }
 
-    public async Task AddAsync(T entity)
+    public void Create(TEntity entity)
     {
-        await _dbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        if (entity.Id != default)
+            throw new ArgumentException($"Id should be empty!");
+
+        // Generate values for ID and CreationAt
+        entity.Id = Guid.NewGuid();
+        entity.CreatedAt = DateTime.Now;
+
+        _dbSet.AddAsync(entity);
+        _context.SaveChanges();
     }
 
-    public async Task UpdateAsync(T entity)
+    public void Update(TEntity entity)
     {
+        if (entity.Id == default)
+            throw new ArgumentException($"Id shouldn't be empty!");
+
         _dbSet.Update(entity);
-        await _context.SaveChangesAsync();
+        _context.SaveChanges();
     }
 
-    public async Task DeleteAsync(T entity)
+    public void Delete(Guid id)
     {
+        var entity = GetById(id, tracking: true);
+        if (entity == null)
+            throw new ArgumentException($"Id {id.ToString()} doesn't exists!");
+
         _dbSet.Remove(entity);
-        await _context.SaveChangesAsync();
+        _context.SaveChanges();
     }
 }

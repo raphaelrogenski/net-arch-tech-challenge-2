@@ -1,9 +1,12 @@
-﻿namespace Contacts.Infrastructure.Repositories;
-public interface IRepositoryBase<T> where T : class
+﻿using Contacts.Infrastructure.Models;
+
+namespace Contacts.Infrastructure.Repositories;
+public interface IRepositoryBase<TEntity>
+    where TEntity : EntityBase
 {
-    Task<T> GetByIdAsync(Guid id);
-    Task<IEnumerable<T>> GetAllAsync();
-    Task AddAsync(T entity);
-    Task UpdateAsync(T entity);
-    Task DeleteAsync(T entity);
+    IQueryable<TEntity> Query(bool tracking = true);
+    TEntity GetById(Guid id, bool tracking = false);
+    void Create(TEntity entity);
+    void Update(TEntity entity);
+    void Delete(Guid id);
 }
