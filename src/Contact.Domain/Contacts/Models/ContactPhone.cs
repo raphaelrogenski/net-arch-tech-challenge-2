@@ -1,12 +1,12 @@
-﻿namespace Contacts.Domain.ValueObjects;
-public class Phone
+﻿namespace Contacts.Domain.Contacts.Models;
+public class ContactPhone
 {
     public string Number { get; private set; } = string.Empty;
     public string DDD { get; private set; } = string.Empty;
 
-    public Phone() { }
+    public ContactPhone() { }
 
-    public Phone(string number, string ddd)
+    public ContactPhone(string number, string ddd)
     {
         if (string.IsNullOrWhiteSpace(number) || number.Length != 9)
             throw new ArgumentException("O número do telefone deve conter 9 dígitos.");
@@ -20,7 +20,7 @@ public class Phone
 
     public override bool Equals(object? obj)
     {
-        if (obj is not Phone phone) return false;
+        if (obj is not ContactPhone phone) return false;
         return Number == phone.Number && DDD == phone.DDD;
     }
 

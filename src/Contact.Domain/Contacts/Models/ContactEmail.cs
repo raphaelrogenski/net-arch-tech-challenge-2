@@ -1,13 +1,13 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Contacts.Domain.ValueObjects;
-public class Email
+namespace Contacts.Domain.Contacts.Models;
+public class ContactEmail
 {
     public string Address { get; private set; } = string.Empty;
 
-    public Email() { }
+    public ContactEmail() { }
 
-    public Email(string address)
+    public ContactEmail(string address)
     {
         if (string.IsNullOrWhiteSpace(address))
             throw new ArgumentException("O endereço de e-mail não pode ser nulo ou vazio.");
@@ -28,7 +28,7 @@ public class Email
 
     public override bool Equals(object obj)
     {
-        if (obj is Email email)
+        if (obj is ContactEmail email)
             return Address == email.Address;
 
         return false;
