@@ -10,7 +10,7 @@ public class ContactRepository(AppDbContext context) : RepositoryBase<Contact>(c
     {
         var query = Query().Where(r => r.Name == contactName);
 
-        if (ignoreGuid != default)
+        if (ignoreGuid != Guid.Empty)
             query = query.Where(r => r.Id != ignoreGuid);
 
         return query.Any();
@@ -20,7 +20,7 @@ public class ContactRepository(AppDbContext context) : RepositoryBase<Contact>(c
     {
         var query = Query().Where(r => r.Phone.DDD == contactPhoneDDD && r.Phone.Number == contactPhoneNumber);
 
-        if (ignoreGuid != default)
+        if (ignoreGuid != Guid.Empty)
             query = query.Where(r => r.Id != ignoreGuid);
 
         return query.Any();
@@ -30,7 +30,7 @@ public class ContactRepository(AppDbContext context) : RepositoryBase<Contact>(c
     {
         var query = Query().Where(r => r.Email.Address == contactEmailAddress);
 
-        if (ignoreGuid != default)
+        if (ignoreGuid != Guid.Empty)
             query = query.Where(r => r.Id != ignoreGuid);
 
         return query.Any();

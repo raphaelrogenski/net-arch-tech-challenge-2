@@ -24,7 +24,7 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
 
     public TEntity GetById(Guid id, bool tracking = false)
     {
-        if (id == default)
+        if (id == Guid.Empty)
             throw new ArgumentException($"Id shouldn't be empty!");
 
         return Query(tracking).SingleOrDefault(r => r.Id == id);
