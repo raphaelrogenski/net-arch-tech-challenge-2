@@ -4,8 +4,13 @@ using Contacts.Domain.Contacts.Repositories;
 using Contacts.Infrastructure.Repositories;
 
 namespace Contacts.Application.Contacts.Repositories;
-public class ContactRepository(AppDbContext context) : RepositoryBase<Contact>(context), IContactRepository
+public class ContactRepository : RepositoryBase<Contact>, IContactRepository
 {
+    public ContactRepository(AppDbContext context)
+        : base(context)
+    {
+    }
+
     public bool ContactNameAlreadyExists(string contactName, Guid ignoreGuid = default)
     {
         var query = Query().Where(r => r.Name == contactName);

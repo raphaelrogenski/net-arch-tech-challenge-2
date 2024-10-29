@@ -7,9 +7,14 @@ using System.Text.RegularExpressions;
 
 namespace Contacts.Application.Contacts.Services;
 
-public class ContactService(IContactRepository repository) 
-    : ServiceBase<Contact, IContactRepository>(repository), IContactService
+public class ContactService
+    : ServiceBase<Contact, IContactRepository>, IContactService
 {
+    public ContactService(IContactRepository repository)
+        : base(repository)
+    {
+    }
+
     public IList<ContactVO> List()
     {
         return Repository.Query(tracking: false)
