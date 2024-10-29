@@ -38,12 +38,16 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
 
         _dbSet.Add(entity);
         _context.SaveChanges();
+
+        _context.Entry(entity).State = EntityState.Detached;
     }
 
     public void Update(TEntity entity)
     {
         _dbSet.Update(entity);
         _context.SaveChanges();
+
+        _context.Entry(entity).State = EntityState.Detached;
     }
 
     public void Delete(Guid id)
