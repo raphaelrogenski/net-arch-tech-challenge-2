@@ -1,4 +1,10 @@
-using Contacts.Api;
+namespace Contacts.Api;
 
-var application = new Application();
-application.Run(args);
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var application = new Application();
+        application.Run(args);
+    }
+}
