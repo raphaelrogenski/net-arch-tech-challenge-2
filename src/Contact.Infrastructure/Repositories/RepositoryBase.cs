@@ -36,7 +36,7 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
         entity.Id = Guid.NewGuid();
         entity.CreatedAt = DateTime.Now;
 
-        _dbSet.AddAsync(entity);
+        _dbSet.Add(entity);
         _context.SaveChanges();
     }
 
