@@ -49,6 +49,8 @@ namespace Contacts.Test.Tests
 
         public ContactControllerTest()
         {
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "");
+
             builder = WebApplication.CreateBuilder();
             builder.Services.AddSingleton<DbInitializer>();
             builder.Services.AddDbContext<AppDbContext>(options =>
