@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Contacts.Api
 {
-    public class Application
+    public static class Application
     {
-        public void Run(string[] args)
+        public static void Run(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
