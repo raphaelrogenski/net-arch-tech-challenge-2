@@ -73,9 +73,10 @@ namespace Contacts.Test.Tests
 
         public void Dispose()
         {
-            app.DisposeAsync();
+            app.DisposeAsync().AsTask().Wait();
             app = null;
             builder = null;
+            GC.SuppressFinalize(this);
         }
 
         [Fact]
