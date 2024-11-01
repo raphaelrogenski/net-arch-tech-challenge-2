@@ -128,12 +128,17 @@ public class ContactService
         string mobilePhonePattern = @"^9\d{8}$";
         string fixedPhonePattern = @"^[2-5]\d{7}$";
 
-        return Regex.IsMatch(phoneNumber, mobilePhonePattern) || Regex.IsMatch(phoneNumber, fixedPhonePattern);
+        var isMobileValid = Regex.IsMatch(phoneNumber, mobilePhonePattern, RegexOptions.None, TimeSpan.FromMilliseconds(500));
+        var isFixedValid = Regex.IsMatch(phoneNumber, fixedPhonePattern, RegexOptions.None, TimeSpan.FromMilliseconds(500));
+
+        return isMobileValid || isFixedValid;
     }
 
     private static bool ValidateEmailAddress(string emailAddress)
     {
         string emailPattern = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$";
-        return Regex.IsMatch(emailAddress, emailPattern);
+
+        var isEmailValid = Regex.IsMatch(emailAddress, emailPattern, RegexOptions.None, TimeSpan.FromMilliseconds(500));
+        return isEmailValid;
     }
 }
