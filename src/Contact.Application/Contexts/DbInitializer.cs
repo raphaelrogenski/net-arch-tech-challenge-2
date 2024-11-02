@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace Contacts.Infrastructure;
+namespace Contacts.Application.Contexts;
 public class DbInitializer
 {
     private readonly IConfiguration _configuration;

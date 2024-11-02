@@ -1,12 +1,11 @@
-﻿using Contacts.Infrastructure.Mappings;
+﻿using Contacts.Application.Contacts.Mappings;
 using Microsoft.EntityFrameworkCore;
 
-namespace Contacts.Infrastructure;
+namespace Contacts.Application.Contexts;
 public class AppDbContext : DbContext
 {
-    public DbSet<Domain.Entities.Contact> Contact { get; set; }
-
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
     }
 

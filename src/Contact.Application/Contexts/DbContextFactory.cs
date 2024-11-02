@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace Contacts.Infrastructure;
-public class DbContextFactory
+namespace Contacts.Application.Contexts;
+public static class DbContextFactory
 {
     public static AppDbContext CreateDbContext(IConfiguration configuration)
     {
