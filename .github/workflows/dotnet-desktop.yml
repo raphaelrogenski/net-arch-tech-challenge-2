@@ -19,7 +19,7 @@ jobs:
 
     env:
       Solution_Name: TechChallenge-PhaseOne.sln                 # Replace with your solution name, i.e. MyWpfApp.sln.
-      Test_Project_Path: src\Contact.Test\Contacts.Test.csproj  # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      Test_Project_Path: Contact.Test\Contacts.Test.csproj      # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
 
     steps:
     - name: Checkout
