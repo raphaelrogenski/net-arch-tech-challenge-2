@@ -9,7 +9,7 @@
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
 
             // Act
-            Api.Program.Main([]);
+            Api.Application.GetWebApplication([]).RunAsync();
 
             // Assert
             Assert.True(true);
@@ -22,7 +22,7 @@
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Production");
 
             // Act
-            Api.Program.Main([]);
+            Api.Application.GetWebApplication([]).RunAsync();
 
             // Assert
             Assert.True(true);

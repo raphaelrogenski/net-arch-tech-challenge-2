@@ -1,6 +1,4 @@
 ﻿using Contacts.Api.Controllers;
-using Contacts.Application.Contacts.Repositories;
-using Contacts.Application.Contacts.Services;
 using Contacts.Application.Contexts;
 using Contacts.Domain.Contacts.Services;
 using Contacts.Domain.Contacts.VOs;
@@ -8,7 +6,6 @@ using Contacts.Infrastructure.DI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Contacts.Test.Tests
@@ -136,7 +133,7 @@ namespace Contacts.Test.Tests
             controller.Create(contact);
 
             // Act
-            var result = controller.ListByDDD(PhoneDDD_Valid2);
+            var result = controller.List(PhoneDDD_Valid2);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
@@ -155,7 +152,7 @@ namespace Contacts.Test.Tests
             // Arrange
 
             // Act
-            var result = controller.ListByDDD(PhoneDDD_Valid2);
+            var result = controller.List(PhoneDDD_Valid2);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
@@ -170,7 +167,7 @@ namespace Contacts.Test.Tests
             var newController = new ContactController(null);
 
             // Act
-            var result = newController.ListByDDD(null);
+            var result = newController.List(null);
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
@@ -186,7 +183,7 @@ namespace Contacts.Test.Tests
             var result = controller.Create(contact);
 
             // Assert
-            Assert.IsType<NoContentResult>(result);
+            Assert.IsType<CreatedResult>(result);
         }
 
         [Fact]
@@ -214,7 +211,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Name shouldn't be empty!", badRequestResult.Value);
+            Assert.Contains("Name shouldn't be empty!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -228,7 +225,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone DDD shouldn't be empty!", badRequestResult.Value);
+            Assert.Contains("Phone DDD is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -242,7 +239,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone Number shouldn't be empty!", badRequestResult.Value);
+            Assert.Contains("Phone Number is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -256,7 +253,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Email Address shouldn't be empty!", badRequestResult.Value);
+            Assert.Contains("Email Address is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -270,7 +267,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone DDD is invalid!", badRequestResult.Value);
+            Assert.Contains("Phone DDD is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -284,7 +281,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone Number should have only numbers!", badRequestResult.Value);
+            Assert.Contains("Phone Number should have only numbers!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -298,7 +295,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone Number is invalid!", badRequestResult.Value);
+            Assert.Contains("Phone Number is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -312,7 +309,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Email Address is invalid!", badRequestResult.Value);
+            Assert.Contains("Email Address is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -332,7 +329,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Name already in use!", badRequestResult.Value);
+            Assert.Contains("Name already in use!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -349,7 +346,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone already in use!", badRequestResult.Value);
+            Assert.Contains("Phone already in use!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -366,7 +363,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Email already in use!", badRequestResult.Value);
+            Assert.Contains("Email already in use!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -422,7 +419,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Id shouldn't be empty!", badRequestResult.Value);
+            Assert.Contains("Id shouldn't be empty!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -444,7 +441,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Name shouldn't be empty!", badRequestResult.Value);
+            Assert.Contains("Name shouldn't be empty!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -466,7 +463,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone DDD shouldn't be empty!", badRequestResult.Value);
+            Assert.Contains("Phone DDD is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -488,7 +485,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone Number shouldn't be empty!", badRequestResult.Value);
+            Assert.Contains("Phone Number is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -510,7 +507,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Email Address shouldn't be empty!", badRequestResult.Value);
+            Assert.Contains("Email Address is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -532,7 +529,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone DDD is invalid!", badRequestResult.Value);
+            Assert.Contains("Phone DDD is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -554,7 +551,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone Number should have only numbers!", badRequestResult.Value);
+            Assert.Contains("Phone Number should have only numbers!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -576,7 +573,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone Number is invalid!", badRequestResult.Value);
+            Assert.Contains("Phone Number is invalid!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -602,7 +599,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Name already in use!", badRequestResult.Value);
+            Assert.Contains("Name already in use!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -629,7 +626,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Phone already in use!", badRequestResult.Value);
+            Assert.Contains("Phone already in use!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -655,7 +652,7 @@ namespace Contacts.Test.Tests
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Email already in use!", badRequestResult.Value);
+            Assert.Contains("Email already in use!", badRequestResult.Value.ToString());
         }
 
         [Fact]
@@ -684,15 +681,14 @@ namespace Contacts.Test.Tests
         public void Delete_ShouldThrowAnException_WhenIdDoesntExists()
         {
             // Arrange
-            var contact = new ContactVO { Name = Name_Valid1, PhoneDDD = PhoneDDD_Valid1, PhoneNumber = PhoneNumber_Valid8Digits1, EmailAddress = EmailAddress_Valid1 };
-            var contactId = contact.Id;
+            var contactId = Guid.NewGuid();
 
             // Act
             var result = controller.Delete(contactId);
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Id shouldn't be empty!", badRequestResult.Value);
+            Assert.Equal("Id not found!", badRequestResult.Value);
         }
     }
 }
